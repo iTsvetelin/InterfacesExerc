@@ -24,7 +24,7 @@ namespace P07_CollectionsHierarchy
         public int Add(string item)
         {
             this.Collection.Add(item);
-            var result = this.Collection.IndexOf(item);
+            var result = this.Collection.Count - 1;
             return result;
         }
     }
