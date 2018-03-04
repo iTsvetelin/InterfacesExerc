@@ -11,7 +11,7 @@ namespace P07_CollectionsHierarchy
 
         public AddCollection()
         {
-            this.Collection = new List<string>(100);
+            this.Collection = new List<string>();
         }
 
         private List<string> Collection

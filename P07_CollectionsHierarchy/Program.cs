@@ -10,65 +10,49 @@ namespace P07_CollectionsHierarchy
         static void Main(string[] args)
         {
             var inputTokens = Console.ReadLine().Split(' ',StringSplitOptions.RemoveEmptyEntries);
-            var totalRemoves = int.Parse(Console.ReadLine());
 
-            AddCollection addCollection = new AddCollection();
-            AddRemoveCollection addRemCollection = new AddRemoveCollection();
-            MyList myList = new MyList();
+            var addCollection = new AddCollection();
+            var addRemCollection = new AddRemoveCollection();
+            var myList = new MyList();
 
-            List<StringBuilder> inputResults = new List<StringBuilder>
-            {
-                new StringBuilder(),
-                new StringBuilder(),
-                new StringBuilder()
-            };
-            List<StringBuilder> outputResults = new List<StringBuilder>
-            {
-                new StringBuilder(),
-                new StringBuilder()
-            };
+            var addIndicesAddCollection = String.Empty;
+            var addIndicesAddRemoveCollection = String.Empty;
+            var addIndicesMyList = String.Empty;
 
-            List<IAddable> addCollections = new List<IAddable>
-            {
-
-                addCollection,
-                addRemCollection,
-                myList
-            };
-            List<IRemoveable> removeCollections = new List<IRemoveable>
-            {
-               addRemCollection,
-               myList
-            };
-
+            int indexOfAdding;
             foreach (var token in inputTokens)
             {
-                foreach (var colection in addCollections)
-                {
-                    var result = colection.Add(token);
-                    var currentIndex = addCollections.IndexOf(colection);
-                    inputResults[currentIndex].Append($"{result} ");
-                } 
+                indexOfAdding = addCollection.Add(token);
+                addIndicesAddCollection += $"{indexOfAdding} ";
+
+                indexOfAdding = addRemCollection.Add(token);
+                addIndicesAddRemoveCollection += $"{indexOfAdding} ";
+
+                indexOfAdding = myList.Add(token);
+                addIndicesMyList += $"{indexOfAdding} ";
             }
 
-            for(int i = 0; i < totalRemoves; i++)
+
+            var totalRemoves = int.Parse(Console.ReadLine());
+
+            var removedItemFromAddRemoveCollection = String.Empty;
+            var removedItemFromMyList = String.Empty;
+
+            var removedItem = String.Empty;
+            for (int i = 0; i < totalRemoves; i++)
             {
-                foreach(var collection in removeCollections)
-                {
-                    var result = collection.Remove();
-                    var currentIndex = removeCollections.IndexOf(collection);
-                    outputResults[currentIndex].Append($"{result} ");
-                }
+                removedItem = addRemCollection.Remove();
+                removedItemFromAddRemoveCollection += $"{removedItem} ";
+
+                removedItem = myList.Remove();
+                removedItemFromMyList += $"{removedItem} ";
             }
 
-            foreach (var result in inputResults)
-            {
-                Console.WriteLine(result.ToString().TrimEnd());
-            }
-            foreach(var result in outputResults)
-            {
-                Console.WriteLine(result.ToString().TrimEnd());
-            }
+            Console.WriteLine(addIndicesAddCollection.TrimEnd());
+            Console.WriteLine(addIndicesAddRemoveCollection.TrimEnd());
+            Console.WriteLine(addIndicesMyList.TrimEnd());
+            Console.WriteLine(removedItemFromAddRemoveCollection.TrimEnd());
+            Console.WriteLine(removedItemFromMyList.TrimEnd());
         }
     }
 }
